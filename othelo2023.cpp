@@ -17,7 +17,7 @@ public:
     }
 
     void jugar() {
-        std::cout << "¡Bienvenido a Othello (también conocido como Reversi)!" << std::endl;
+        std::cout << "¡Bienvenido a Othello Informatica II 2023!" << std::endl;
 
         while (true) {
             dibujarTablero();
@@ -30,7 +30,7 @@ public:
 
             if (esJugadaValida(fila, columna)) {
                 hacerJugada(fila, columna);
-                jugadorActual = (jugadorActual == '*') ? '-' : '*'; // Cambia el turno al otro jugador
+                jugadorActual = (jugadorActual == '*') ? '-' : '*'; // Cambia el turno al otro jugador de 1 a 2
             } else {
                 std::cout << "Jugada inválida. Inténtalo de nuevo." << std::endl;
             }
