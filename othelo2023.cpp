@@ -1,3 +1,4 @@
+//Juego de Othello Informatica II - 2023
 #include <iostream>
 #include <array>
 
