@@ -32,7 +32,7 @@ public:
                 hacerJugada(fila, columna);
                 jugadorActual = (jugadorActual == '*') ? '-' : '*'; // Cambia el turno al otro jugador de 1 a 2
             } else {
-                std::cout << "Jugada inválida. Inténtalo de nuevo." << std::endl;
+                std::cout << "Jugada inválida. Inténtalo de nuevamente." << std::endl;
             }
         }
     }
@@ -137,7 +137,7 @@ private:
                 } else if (c == '-') {
                     std::cout << '-'; // Reemplaza '-' por '-'
                 } else {
-                    std::cout << c;  // Deja otros caracteres sin cambios
+                    std::cout << c;  // caracteres sin cambios
                 }
                 std::cout << ' ';
             }
