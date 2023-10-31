@@ -1,11 +1,12 @@
-//Juego de Othello Informatica II - 2023
 #include <iostream>
-#include <array>
 
 class Othello {
 public:
     Othello() : jugadorActual('*') {
+        // Inicializar el tablero utilizando memoria dinámica y punteros
+        tablero = new char*[8];
         for (int i = 0; i < 8; i++) {
+            tablero[i] = new char[8];
             for (int j = 0; j < 8; j++) {
                 tablero[i][j] = ' ';
             }
@@ -14,10 +15,20 @@ public:
         tablero[3][4] = '-';
         tablero[4][3] = '-';
         tablero[4][4] = '*';
+
+        // Otros miembros de la clase
+    }
+
+    ~Othello() {
+        // Liberar la memoria dinámica utilizada por el tablero
+        for (int i = 0; i < 8; i++) {
+            delete[] tablero[i];
+        }
+        delete[] tablero;
     }
 
     void jugar() {
-        std::cout << "¡Bienvenido a Othello Informatica II 2023!" << std::endl;
+        std::cout << "¡Bienvenido a Othello!" << std::endl;
 
         while (true) {
             dibujarTablero();
@@ -30,23 +41,23 @@ public:
 
             if (esJugadaValida(fila, columna)) {
                 hacerJugada(fila, columna);
-                jugadorActual = (jugadorActual == '*') ? '-' : '*'; // Cambia el turno al otro jugador de 1 a 2
+                jugadorActual = (jugadorActual == '*') ? '-' : '*';
             } else {
-                std::cout << "Jugada inválida. Inténtalo de nuevamente." << std::endl;
+                std::cout << "Jugada inválida. Inténtalo de nuevo." << std::endl;
             }
         }
     }
 
 private:
     char jugadorActual;
-    char tablero[8][8];
+    char** tablero;
 
     bool esJugadaValida(char fila, int columna) {
         int filaIndex = fila - 'A';
         int columnaIndex = columna - 1;
 
         if (fila < 'A' || fila > 'H' || columna < 1 || columna > 8 || tablero[filaIndex][columnaIndex] != ' ') {
-            return false; // La casilla está fuera de los límites o no está vacía
+            return false;
         }
 
         char rival = (jugadorActual == '*') ? '-' : '*';
@@ -69,6 +80,7 @@ private:
                     } else if (tablero[x][y] == jugadorActual) {
                         if (encontradasFichasDelOponente) {
                             jugadaValida = true;
+                            break;
                         }
                         break;
                     } else {
@@ -131,15 +143,7 @@ private:
         for (int i = 0; i < 8; i++) {
             std::cout << (char)('A' + i) << ' ';
             for (int j = 0; j < 8; j++) {
-                char c = tablero[i][j];
-                if (c == '*') {
-                    std::cout << '*'; // Reemplaza '*' por '*'
-                } else if (c == '-') {
-                    std::cout << '-'; // Reemplaza '-' por '-'
-                } else {
-                    std::cout << c;  // caracteres sin cambios
-                }
-                std::cout << ' ';
+                std::cout << tablero[i][j] << ' ';
             }
             std::cout << std::endl;
         }
